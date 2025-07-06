@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/contact_styles.css' %}">
+
+</head>
+<body>
+
+    <!-- Background Video -->
+    <video autoplay muted loop playsinline id="background-video">
+        <source src="{% static 'accounts/videos/Background_contact.mp4' %}" type="video/mp4">
+        <source src="Background.webm" type="video/webm">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="contact-container">
+        <div class="left-section">
+            <h2>CONTACT US</h2>
+            <p>Or reach out manually to <a href="mailto:uifresh.net@gmail.com">NirvayaSOS@gmail.com</a></p>
+            <div class="plane-wrapper">
+                <img src="{% static 'accounts/img/plan.png' %}" alt="Paper Plane" class="animated-plane">
+            </div>
+        </div>
+        <div class="right-section">
+            <form>
+                <label>Email address</label>
+                <input type="email" placeholder="Enter your email" required>
+                <small>We'll never share your email with anyone else.</small>
+
+                <label>Your name</label>
+                <input type="text" placeholder="Enter your name" required>
+
+                <label>Your message</label>
+                <textarea placeholder="Enter your message" required></textarea>
+
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,1238 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nirvaya - Women's Safety Device</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            color: #ffffff;
+            background-color: #121212;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Video Background */
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 73vh; /* This makes it cover the first half of the viewport */
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .video-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Overlay to darken video */
+        }
+
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Bottom half of the page background */
+        .page-background {
+            position: absolute;
+            top: 40vh;
+            left: 0;
+            width: 100%;
+            height: 50vh;
+            background-color: #121212;
+            z-index: -2;
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 80px;
+            height: 80px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            color: #ffffff;
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 18px;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ff69b4;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ff69b4;
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Main Content Styles */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            min-height: calc(100vh - 90px);
+            padding: 20px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            height: 50vh;
+            padding-bottom: 20px;
+        }
+
+        .hero-content {
+            width: 40%;
+        }
+
+        .hero-content h2 {
+            font-size: 48px;
+            margin-bottom: 2%;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero-content h4 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: #ffd700;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+      
+
+        /* Form Styles */
+        .form-container {
+            background-color:transparent rgba(255, 254, 254, 0.7);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: -40px;
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 105, 180, 0.3);
+            box-shadow: 0 4px 15px rgba(55, 50, 50, 0.5);
+        }
+        .contacts-display {
+            background-color:transparent rgba(255, 254, 254, 0.7);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: -40px;
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 105, 180, 0.3);
+            box-shadow: 0 4px 15px rgba(55, 50, 50, 0.5);
+            margin-bottom: 12px 40px 12px 15px;
+        }
+        .form-container h3 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: rgba(241, 231, 231, 0.1);
+            color: #ffffff;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 105, 180, 0.5);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-group i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff69b4;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        .add-contact-btn {
+    background-color: #ffd700;
+    color: #800080;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto 20px;
+    transition: all 0.3s ease;
+}
+        .sos-btn {
+            padding: 9px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sos-alert {
+            background-color: #ff3547;
+            color: white;
+        }
+
+        .sos-alert:hover {
+            background-color: #ff0015;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 53, 71, 0.4);
+        }
+
+        .sos-voice {
+            background-color: #4285f4;
+            color: white;
+        }
+
+        .sos-voice:hover {
+            background-color: #0d5bdd;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(66, 133, 244, 0.4);
+        }
+
+        /* Safety Tips Cards */
+     
+
+        .safety-tips-section h2 {
+            font-size: 30px;
+            margin-bottom: 5px;
+            color: #ffffff;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .safety-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Ensures 3 cards per row */
+            gap: 40px;
+        }
+        
+
+        .safety-card {
+            background: linear-gradient(145deg, rgba(106, 0, 105, 0.8), rgba(255, 105, 180, 0.6));
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .safety-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.3);
+        }
+
+        .safety-card-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .safety-card-icon i {
+            font-size: 28px;
+            color: #ff69b4;
+        }
+
+        .safety-card h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            text-align: center;
+            color: #ffd700;
+        }
+
+        .safety-card p {
+            font-size: 15px;
+            line-height: 1.5;
+            color: #ffffff;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px 40px;
+            text-align: center;
+        }
+
+        footer p {
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+                flex-direction: column;
+            }
+
+            nav ul {
+                margin-top: 15px;
+            }
+
+            nav ul li {
+                margin-left: 15px;
+            }
+
+            .main-container {
+                padding: 15px 20px;
+            }
+
+            /* Add these styles to your existing CSS */
+/* Add these styles to your existing CSS */
+.hero-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 50px;
+    height: 50vh;
+    padding-bottom: 20px;
+}
+
+.contacts-container {
+    width: 40%;
+    min-width: 300px;
+    margin-left: 20px;
+}
+
+.add-contact-btn {
+    background-color: #ffd700;
+    color: #800080;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto 20px;
+    transition: all 0.3s ease;
+}
+
+.add-contact-btn:hover {
+    background-color: #e6c200;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.contacts-form {
+    background-color: rgba(128, 0, 128, 0.7);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    border: 2px solid #ffd700; /* Gold border around the form */
+}
+
+.contacts-form ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contacts-form ul li {
+    color: #ffd700;
+    margin-bottom: 15px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.contacts-form ul li:before {
+    content: "•";
+    color: #ffd700;
+    font-size: 20px;
+    margin-right: 15px;
+}
+
+/* Update responsive styles */
+@media (max-width: 768px) {
+    .hero-section {
+        flex-direction: column;
+        height: auto;
+        min-height: 50vh;
+    }
+    
+    .hero-content, .contacts-container {
+        width: 100%;
+        margin-bottom: 30px;
+        margin-left: 0;
+    }
+}
+
+            .hero-content {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+
+            .hero-content h2 {
+                font-size: 36px;
+            }
+
+            .form-buttons {
+                flex-direction: column;
+            }
+            
+            .video-background {
+                height: 60vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav ul li {
+                margin-left: 10px;
+            }
+
+            nav ul li a {
+                font-size: 16px;
+            }
+
+            .hero-content h2 {
+                font-size: 32px;
+            }
+
+            .hero-content h3 {
+                font-size: 20px;
+            }
+        }#WUS {
+            background: linear-gradient(to bottom, #121212, #330033);
+        }
+        body {
+    font-family: Arial, sans-serif;
+    background: #1a001a;
+    margin: 0;
+    padding: 0;
+}
+
+.user-testimonials h2 {
+    font-size: 30px;
+    margin-bottom: 25px;
+    color: #ffffff;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.testimonial-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    padding: 20px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.testimonial-card {
+    background: linear-gradient(145deg, rgba(106, 0, 105, 0.8), rgba(255, 105, 180, 0.6));
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.5);
+}
+
+.testimonial-avatar {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.testimonial-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.testimonial-card:hover .testimonial-avatar {
+    transform: scale(1.1);
+}
+
+.testimonial-card h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #ffd700;
+}
+
+.testimonial-card p {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #ffffff;
+}
+        
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="{% static 'accounts/videos/background.mp4' %}" type="video/mp4">
+           
+            Your browser does not support the video tag.
+        </video>
+        <!-- <img src="{% static 'accounts/img/background_home.jpg' %}" alt="Nirbhaya Logo">
+           -->
+    </div>
+    
+    <!-- Dark background for the bottom half -->
+    <div class="page-background"></div>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <img src="{% static 'accounts/img/logo.png' %}" alt="Nirbhaya Logo">
+            <h1>NIRVAYA</h1>
+        </div>
+        <nav>
+            <ul>
+                <li> <a href="{% url 'home' %}">Home</a></li>
+                    <li>   <a href="{% url 'about' %}">About</a></li>
+                        <li>  <a href="{% url 'services' %}">Services</a></li>
+                            <li> <a href="{% url 'contact' %}">Contact</a></li>
+                                <li> <a href="{% url 'user_profile' %}">User Profile</a></li>
+            </ul>
+        </nav>
+    </header>
+    {% if user.is_authenticated %}
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h2>Emergency SOS</h2>
+                <h4>A Women Safety Device</h4>
+                {% csrf_token %}
+                <div class="form-container">
+                    <h3>Add Contacts (Max 5)</h3>
+                    <div class="form-group">
+                        <input type="text" placeholder="Enter Your Name">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Enter Your Email">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="Enter Your Phone Number">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    
+                    <div class="form-buttons">
+                        <button class="sos-btn sos-alert">
+                            <i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>
+                            Send SOS Alert
+                        </button>
+                        <button class="sos-btn sos-voice">
+                            <i class="fas fa-microphone" style="margin-right: 8px;"></i>
+                            Send SOS Voice Command
+                        </button>
+                        <button class="add-contact-btn">added contect</button>
+          
+                    </div>
+                </div>
+            </div>
+            <div class="contacts-display">  </div>
+               
+            </div>
+        </section>
+        {% else %}
+        <div class="auth-warning">
+            <h2>You must be logged in to access SOS features.</h2>
+            <a href="{% url 'signin' %}"><button class="login-btn">Sign In</button></a>
+        </div>
+    {% endif %}
+    <section id="WUS">
+        <div class="user-testimonials">
+            <h2>What Our Users Say</h2>
+            <div class="testimonial-cards">
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">
+                        <img src="{% static 'accounts/img/dipanajana_mam.jpg' %}" alt="User 1">
+                    </div>
+                    <h4>DIPANJANA BISWAS</h4>
+                    <p>"This SOS system saved me in an emergency. Quick and reliable!"</p>
+                </div>
+    
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">
+                        <img src="{% static 'accounts/img/PRATIKSA_MAM.jpg' %}" alt="User 2">
+                    </div>
+                    <h4>PRATIKSHA NANDI </h4>
+                    <p>"The voice command feature is a game-changer. Amazing tech!"</p>
+                </div>
+    
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">
+                        <img src="{% static 'accounts/img/SUBHODIP_SIR.jpg' %}" alt="User 3">
+                    </div>
+                    <h4>SHUBHADIP KOLEY</h4>
+                    <p>"I feel much safer knowing my location can be shared instantly."</p>
+                </div>
+    
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">
+                        <img src="{% static 'accounts/img/SUBHOSREE_MAM.jpg' %}" alt="User 4">
+                    </div>
+                    <h4>SUBHOSREE SAHO</h4>
+                    <p>"Brilliant concept and very well executed!"</p>
+                </div>
+    
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">
+                        <img src="{% static 'accounts/img/ME.jpg' %}" alt="User 5">
+                    </div>
+                    <h4>SHIBANI DEBNATH</h4>
+                    <p>"I recommend this app to everyone. It's a must-have for safety."</p>
+                </div>
+    
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">
+                        <img src="{% static 'accounts/img/JAYA.jpg' %}" alt="User 6">
+                    </div>
+                    <h4>JAYA BHATTACHARJE</h4>
+                    <p>"The real-time location tracking is super helpful for my family."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+        <!-- Safety Tips Section -->
+        <section class="safety-tips-section">
+            <h2>WOMEN SAFETY TIPS</h2>
+            <div class="safety-cards">
+                <div class="safety-card">
+                    <div class="safety-card-icon">
+                        <i class="fas fa-location-arrow"></i>
+                    </div>
+                    <h4>Share Your Location</h4>
+                    <p>Always let someone trusted know your whereabouts when traveling alone. Use location-sharing apps to keep friends and family informed of your movements.</p>
+                </div>
+                <div class="safety-card">
+                    <div class="safety-card-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h4>Keep Phone Charged</h4>
+                    <p>Ensure your phone is always charged before heading out. Carry a portable power bank for emergencies when you might need to call for help.</p>
+                </div>
+                <div class="safety-card">
+                    <div class="safety-card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4>Stay Aware</h4>
+                    <p>Be mindful of your surroundings. Avoid using headphones or being distracted by your phone in isolated areas or late at night.</p>
+                </div>
+                <div class="safety-card">
+                    <div class="safety-card-icon">
+                        <i class="fas fa-hands"></i>
+                    </div>
+                    <h4>Self-Defense Basics</h4>
+                    <p>Learn basic self-defense techniques. Awareness and preparedness are key to personal safety in unexpected situations.</p>
+                </div>
+                <div class="safety-card">
+                    <div class="safety-card-icon">
+                        <i class="fas fa-taxi"></i>
+                    </div>
+                    <h4>Safe Transportation</h4>
+                    <p>Choose verified transportation services. Check driver details and share ride information with trusted contacts before getting in.</p>
+                </div>
+                <div class="safety-card">
+                    <div class="safety-card-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h4>Use Safety Apps</h4>
+                    <p>Install safety apps like Nirvaya that can quickly alert emergency contacts with your location with just a tap or voice command.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© COPYRIGHT 2025 NIRVAYA SOS</p>
+    </footer>
+
+    <script>
+       document.addEventListener("DOMContentLoaded", function () {
+    const addButton = document.querySelector(".add-contact-btn");
+    const contactsDisplay = document.querySelector(".contacts-display");
+    const nameInput = document.querySelector(".form-group input[placeholder='Enter Your Name']");
+    const emailInput = document.querySelector(".form-group input[placeholder='Enter Your Email']");
+    const phoneInput = document.querySelector(".form-group input[placeholder='Enter Your Phone Number']"); 
+    const sosButton = document.querySelector(".sos-alert");
+    const voiceButton = document.querySelector(".sos-voice");
+    let contacts = [];
+    let userId = "{{ request.user.id }}";
+    let savedCommand = "";
+    let recognition;
+    let isListening = false;
+    let sosTimeout = null;
+
+    function getCSRFToken() {
+        return document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+    }
+    function addContact() {
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    let phone = phoneInput.value.trim();
+
+    // Ensure the phone number contains only numbers
+    phone = phone.replace(/\D/g, ""); 
+
+    if (!name || !email || !phone) {
+        alert("⚠️ Please enter name, email, and phone number!");
+        return;
+    }
+
+    if (phone.length !== 10) {
+        alert("⚠️ Enter a valid 10-digit phone number!");
+        return;
+    }
+
+    const formattedPhone = `+91${phone}`; // Ensure Indian format
+
+    const requestData = {
+        user_id: userId,
+        name: name,
+        email: email,
+        phone: formattedPhone
+    };
+
+    console.log("📤 Sending API request:", requestData); // Debugging
+
+    fetch("/add-contact/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCSRFToken()
+        },
+        body: JSON.stringify(requestData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("📥 API Response:", data); // Debugging
+
+        if (data.message === "Contact added successfully") {
+            fetchContacts();
+            nameInput.value = ""; 
+            emailInput.value = "";
+            phoneInput.value = "";
+        } else {
+            alert(data.error || "❌ Failed to add contact!");
+        }
+    })
+    .catch(error => {
+        console.error("❌ Error adding contact:", error);
+        alert("⚠️ Something went wrong!");
+    });
+}
+
+    // Attach Event Listener to "Add Contact" Button
+    addButton.addEventListener("click", addContact);
+
+    function fetchContacts() {
+    fetch(`/get-contacts/${userId}/`)
+        .then(response => response.json())
+        .then(data => {
+            console.log("📢 Fetched Contacts:", data.contacts); // ✅ Debugging Line
+            contacts = data.contacts || [];
+            updateContactsDisplay();
+        })
+        .catch(error => console.error("Error fetching contacts:", error));
+}
+
+
+
+function fetchSavedCommand() {
+    fetch(`/get-voice-command/${userId}/`)
+        .then(response => response.json())
+        .then(data => {
+            console.log("✅ Fetched saved command:", data.voice_command);
+            savedCommand = data.voice_command || "";
+            if (savedCommand) startListeningForCommand();
+        })
+        .catch(error => console.error("❌ Error fetching command:", error));
+}
+
+
+function updateContactsDisplay() {
+    console.log("🔄 Updating Contact List...");
+
+    if (!contactsDisplay) {
+        console.error("❌ contactsDisplay element not found!");
+        return;
+    }
+
+    contactsDisplay.innerHTML = "";  
+
+    contacts.forEach(contact => {
+        const phoneText = contact.phone ? `📞 ${contact.phone}` : "📞 Not provided";  
+
+        const contactItem = document.createElement("div");
+        contactItem.setAttribute("id", `contact-${contact.id}`); // Unique ID for easy removal
+
+        contactItem.innerHTML = `
+            <p><strong>${contact.name}</strong> - ${contact.email} - ${phoneText}</p>
+            <button class="remove-btn" data-id="${contact.id}">Remove</button>
+        `;
+
+        contactsDisplay.appendChild(contactItem);
+
+        // ✅ Event listener to remove button
+        contactItem.querySelector(".remove-btn").addEventListener("click", function () {
+            console.log(`🗑️ Remove button clicked for ID: ${contact.id}`);
+            removeContact(contact.id);
+        });
+    });
+
+    console.log("✅ Contact list updated!", contacts);
+}
+
+function removeContact(contactId) {
+    if (!contactId) {
+        console.error("❌ Contact ID is undefined!");
+        return;
+    }
+
+    console.log(`📤 Sending DELETE Request for Contact ID: ${contactId}`);
+
+    fetch('/remove-contact/', {
+        method: 'POST',  // Use DELETE if backend supports it
+        headers: {
+            'Content-Type': 'application/json',
+            "X-CSRFToken": getCSRFToken(),
+        },
+        body: JSON.stringify({ contact_id: contactId })  
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            console.error("❌ Failed to remove contact!", data.error);
+        } else {
+            console.log("✅ Contact removed successfully!", data.message);
+            
+            // ❌ Instead of refreshing all contacts, remove only the deleted one
+            const contactElement = document.getElementById(`contact-${contactId}`);
+            if (contactElement) {
+                contactElement.remove();
+            }
+        }
+    })
+    .catch(error => console.error("❌ Error:", error));
+}
+
+    function sendSOSAlert() {
+    if (!contacts.length) {
+        alert("Please add at least one emergency contact before sending an SOS alert.");
+        return;
+    }
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const locationData = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                };
+
+                fetch("/send-sos/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        user_id: userId,
+                        contacts: contacts,
+                        message: "🚨🚨 EMERGENCY SOS ALERT! 🚨🚨",
+                        location: locationData
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(`❌ Error: ${data.error}`);
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error sending SOS:", error);
+                    alert("Failed to send SOS alert.");
+                });
+            },
+            (error) => {
+                console.error("Error getting location:", error);
+                alert("Could not retrieve your location. Make sure location services are enabled.");
+            }
+        );
+    } else {
+        alert("Geolocation is not supported by your browser.");
+    }
+}
+function sendSOSAlert() {
+    if (!contacts.length) {
+        alert("Please add at least one emergency contact before sending an SOS alert.");
+        return;
+    }
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const locationData = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                };
+
+                // Extract phone numbers from contacts
+                const phoneNumbers = contacts.map(contact => contact.phone).filter(Boolean);
+
+                fetch("/send-sos/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        user_id: userId,
+                        contacts: contacts,  // Send emails
+                        phone_numbers: phoneNumbers,  // Send phone numbers for Twilio calls
+                        message: "🚨🚨 EMERGENCY SOS ALERT! 🚨🚨",
+                        location: locationData
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(`❌ Error: ${data.error}`);
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error sending SOS:", error);
+                    alert("Failed to send SOS alert.");
+                });
+            },
+            (error) => {
+                console.error("Error getting location:", error);
+                alert("Could not retrieve your location. Make sure location services are enabled.");
+            }
+        );
+    } else {
+        alert("Geolocation is not supported by your browser.");
+    }
+}
+
+
+
+function recordVoiceCommand() {
+    alert("🎤 Speak your emergency voice command after clicking OK...");
+
+    // Check if recognition exists and stop it first
+    if (recognition) {
+        recognition.abort();
+        recognition = null; // Reset it to avoid conflicts
+    }
+
+    setTimeout(() => {  // Small delay to prevent immediate "aborted" error
+        let tempRecognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        tempRecognition.lang = "en-US";
+        tempRecognition.continuous = false;
+
+        tempRecognition.onresult = function (event) {
+            let command = event.results[0][0].transcript.toLowerCase().trim();
+            console.log("🔊 Recorded command:", command);
+            alert(`✅ Voice command saved: "${command}"`);
+
+            // Send updated voice command to backend
+            fetch("/save-voice-command/", {
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": getCSRFToken() 
+                },
+                body: JSON.stringify({ user_id: userId, voice_command: command })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert(data.message);
+                    savedCommand = command; // Update frontend variable
+                    fetchSavedCommand(); // Refresh saved command
+                } else {
+                    alert("❌ Failed to update voice command!");
+                }
+            })
+            .catch(error => {
+                console.error("❌ Error saving voice command:", error);
+                alert("⚠️ Something went wrong! Try again.");
+            });
+        };
+
+        tempRecognition.onerror = function (event) {
+            console.error("❌ Voice recognition error:", event.error);
+            alert(`⚠️ Error recording command: ${event.error}`);
+        };
+
+        tempRecognition.start();
+    }, 500);  // Delay prevents instant abortion
+}
+
+    function startListeningForCommand() {
+        if (!savedCommand) {
+            console.log("⚠️ No voice command recorded. Skipping listening mode.");
+            return;
+        }
+
+        if (recognition) {
+            recognition.stop();
+        }
+
+        recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = "en-US";
+        recognition.continuous = true;
+        isListening = true;
+
+        recognition.onresult = function (event) {
+            const spokenCommand = event.results[0][0].transcript.toLowerCase().trim();
+            console.log(`🔊 Detected command: "${spokenCommand}"`);
+
+            if (spokenCommand === savedCommand) {
+                showConfirmationPopup();
+            }
+        };
+
+        recognition.onend = function () {
+            if (isListening) {
+                setTimeout(() => recognition.start(), 100);
+            }
+        };
+
+        recognition.onerror = function (event) {
+            console.error("❌ Voice recognition error:", event.error);
+            if (event.error === "no-speech" || event.error === "network") {
+                setTimeout(() => recognition.start(), 100);
+            }
+        };
+
+        recognition.start();
+    }
+
+    function showConfirmationPopup() {
+    console.log("🔴 Emergency voice command detected! Showing confirmation popup...");
+
+    // Remove any existing popup to prevent duplicates
+    const existingPopup = document.querySelector(".sos-popup");
+    if (existingPopup) {
+        existingPopup.remove();
+    }
+
+    // Create the confirmation popup dynamically
+    const popup = document.createElement("div");
+    popup.classList.add("sos-popup");
+    popup.innerHTML = `
+        <div class="sos-popup-content">
+            <h3 style="color: red;">🔊 Voice Command Detected!</h3>
+            <p class="sos-message">Would you like to send an emergency alert?</p>
+            <button id="sos-yes">✅ Yes, Send Alert</button>
+            <button id="sos-no">❌ No, Cancel</button>
+            <p class="sos-timer">Auto-sending in <span id="countdown">5</span>s...</p>
+        </div>
+    `;
+
+    // Apply basic styles to ensure proper display
+    popup.style.position = "fixed";
+    popup.style.top = "50%";
+    popup.style.left = "50%";
+    popup.style.transform = "translate(-50%, -50%)";
+    popup.style.backgroundColor = "#fff";
+    popup.style.padding = "20px";
+    popup.style.border = "3px solid red";
+    popup.style.boxShadow = "0px 0px 15px rgba(0,0,0,0.5)";
+    popup.style.textAlign = "center";
+    popup.style.zIndex = "1000";
+    popup.style.borderRadius = "10px";
+    popup.style.fontFamily = "Arial, sans-serif";
+    popup.style.width = "300px"; // Ensures proper spacing
+    popup.style.maxWidth = "90%";
+
+    // Style for content inside the popup
+    const popupContent = popup.querySelector(".sos-popup-content");
+    popupContent.style.display = "flex";
+    popupContent.style.flexDirection = "column";
+    popupContent.style.alignItems = "center";
+
+    // Apply BLACK color to the paragraph (main message)
+    const sosMessage = popup.querySelector(".sos-message");
+    sosMessage.style.color = "black";
+    sosMessage.style.fontSize = "18px";
+    sosMessage.style.marginBottom = "10px";
+
+    // Apply styles to the timer text
+    const sosTimer = popup.querySelector(".sos-timer");
+    sosTimer.style.color = "gray";
+    sosTimer.style.fontSize = "14px";
+
+    // Style for buttons
+    const buttons = popup.querySelectorAll("button");
+    buttons.forEach(button => {
+        button.style.margin = "10px";
+        button.style.padding = "10px 15px";
+        button.style.fontSize = "16px";
+        button.style.cursor = "pointer";
+        button.style.border = "none";
+        button.style.borderRadius = "5px";
+    });
+
+    // Apply styles to the Yes button
+    const yesButton = popup.querySelector("#sos-yes");
+    yesButton.style.backgroundColor = "green";
+    yesButton.style.color = "white";
+
+    // Apply styles to the No button
+    const noButton = popup.querySelector("#sos-no");
+    noButton.style.backgroundColor = "red";
+    noButton.style.color = "white";
+
+    document.body.appendChild(popup);
+
+    // Countdown Timer UI
+    let countdown = 5;
+    const countdownElement = document.getElementById("countdown");
+    const countdownInterval = setInterval(() => {
+        countdown--;
+        countdownElement.textContent = countdown;
+        if (countdown === 0) {
+            clearInterval(countdownInterval);
+        }
+    }, 1000);
+
+    // Start a timeout to send SOS automatically after 5 seconds if no response
+    const sosTimeout = setTimeout(() => {
+        console.log("⏳ No response detected! Sending automatic SOS...");
+        document.body.removeChild(popup); // Remove popup
+        sendSOSAlert(); // Auto-send SOS
+    }, 5000);
+
+    // If user clicks "Yes" → Cancel timeout & send SOS immediately
+    document.getElementById("sos-yes").addEventListener("click", () => {
+        clearTimeout(sosTimeout); // ✅ Cancel automatic SOS
+        clearInterval(countdownInterval); // Stop countdown
+        document.body.removeChild(popup); // Remove popup
+        sendSOSAlert(); // Send SOS immediately
+    });
+
+    // If user clicks "No" → Cancel timeout & do not send SOS
+    document.getElementById("sos-no").addEventListener("click", () => {
+        clearTimeout(sosTimeout); // ✅ Cancel automatic SOS
+        clearInterval(countdownInterval); // Stop countdown
+        document.body.removeChild(popup); // Remove popup
+        console.log("❌ User canceled SOS. No alert will be sent.");
+    });
+}
+
+    voiceButton.addEventListener("click", recordVoiceCommand);
+    sosButton.addEventListener("click", sendSOSAlert);
+
+    fetchContacts();
+    fetchSavedCommand();
+});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live Location Tracking</title>
+    <style>
+        /* Simple style for the map container */
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+ 
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=Api_key"></script>
+
+</head>
+<body>
+    <h1>Live Location Tracking</h1>
+    <div id="map"></div>
+
+    <script>
+        let map, marker;
+        
+        function initMap(lat, lng) {
+            const initialPosition = { lat: lat, lng: lng };
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: initialPosition,
+            });
+            marker = new google.maps.Marker({
+                position: initialPosition,
+                map: map,
+                title: "Your Live Location"
+            });
+        }
+
+        function updateMarker(lat, lng) {
+            const newPosition = { lat: lat, lng: lng };
+            marker.setPosition(newPosition);
+            map.setCenter(newPosition);
+        }
+
+        // Function to get user's live location
+        function trackUserLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.watchPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        
+                        console.log("Live Location: ", lat, lng);
+
+                        if (!map) {
+                            initMap(lat, lng);
+                        } else {
+                            updateMarker(lat, lng);
+                        }
+                    },
+                    (error) => {
+                        console.error("Error getting location:", error);
+                        alert("Unable to fetch your location. Please enable GPS.");
+                    },
+                    {
+                        enableHighAccuracy: true, // Get precise location
+                        maximumAge: 0, // No caching, always get fresh location
+                        timeout: 5000, // Timeout after 5 sec
+                    }
+                );
+            } else {
+                alert("Geolocation is not supported by your browser.");
+            }
+        }
+
+        // Start tracking when page loads
+        trackUserLocation();
+    </script>
+</body>
+</html>

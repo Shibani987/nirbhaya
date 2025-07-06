@@ -1,0 +1,245 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Nirvaya SOS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            background-image: url('background-pattern.jpg');
+            background-blend-mode: overlay;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 80px;
+            height: 80px;
+            margin-right: 10px;
+        
+        }
+        
+        .logo-text {
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #e83e8c;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+        
+        .page-title {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .subtitle {
+            color: #e83e8c;
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .about-text {
+            line-height: 1.8;
+        }
+        
+        .about-text h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #e83e8c;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+        }
+        
+        .about-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(232, 62, 140, 0.3);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: fill;
+            
+        }
+        
+        .mission-vision {
+            margin-top: 60px;
+            background-color: rgba(20, 20, 20, 0.7);
+            padding: 40px;
+            border-radius: 10px;
+        }
+        
+        .mission-vision h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #e83e8c;
+            text-align: center;
+        }
+        
+        .mission-vision-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .mission, .vision {
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            border-left: 3px solid #e83e8c;
+        }
+        
+        .mission h3, .vision h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: white;
+        }
+        
+        .team-section {
+            margin-top: 60px;
+            text-align: center;
+        }
+        
+        .team-section h2 {
+            font-size: 28px;
+            margin-bottom: 40px;
+            color: #e83e8c;
+        }
+        
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <img src="{% static 'accounts/img/logo.png' %}" alt="Nirbhaya Logo">
+            <div class="logo-text">NIRVAYA</div>
+        </div>
+        <div class="nav-links">
+            
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'about' %}">About</a>
+                <a href="{% url 'services' %}">Services</a>
+                <a href="{% url 'contact' %}">Contact</a>
+                <a href="{% url 'user_profile' %}">User Profile</a>
+            
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1 class="page-title">About Nirvaya</h1>
+        <p class="subtitle">Empowering Women Through Safety & Technology</p>
+
+        <div class="about-content">
+            <div class="about-text">
+                <h2>Our Story</h2>
+                <p>
+                    Nirvaya SOS was founded in 2025 with a single mission: to create a safer world for women through innovative technology solutions. Born out of the urgent need to address women's safety concerns in our society, Nirvaya provides immediate emergency response systems that empower women to seek help when they need it most.
+                </p>
+                <p>
+                    The name "Nirvaya" represents fearlessness and courage - qualities we aim to instill in every woman by providing them with reliable safety tools at their fingertips. We believe that technology, when designed thoughtfully, can be a powerful ally in creating social change.
+                </p>
+                <p>
+                    Our team consists of dedicated professionals from diverse backgrounds including technology, social work, and security, all united by a common goal of making a meaningful difference in women's lives.
+                </p>
+            </div>
+            <div class="about-image">
+                <img src="{% static 'accounts/img/contact nirbhaya.jpg' %}" alt="Women Empowerment">
+            </div>
+        </div>
+
+        <div class="mission-vision">
+            <h2>Our Mission & Vision</h2>
+            <div class="mission-vision-grid">
+                <div class="mission">
+                    <h3>Mission</h3>
+                    <p>To provide accessible, reliable, and immediate safety solutions that empower women to navigate the world with confidence and security. We strive to leverage technology to create practical tools that can make a real difference in emergency situations.</p>
+                </div>
+                <div class="vision">
+                    <h3>Vision</h3>
+                    <p>A world where every woman feels safe, secure, and empowered to pursue her dreams without fear. We envision a society where technology serves as an enabler of equality and protection, contributing to a fundamental shift in women's safety.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="team-section">
+            <h2>The Team Behind Nirvaya</h2>
+            <p>
+                Our diverse team brings together expertise in technology, personal safety, gender studies, and community outreach. We are a passionate group committed to creating innovative solutions that address real-world problems affecting women's safety and empowerment.
+            </p>
+            <!-- Team members would be added here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© COPYRIGHT 2025 NIRVAYA SOS</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nirvaya</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/join_styles.css' %}">
+    <style>body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+        background: url("{% static 'accounts/img/Join_Back_Ground.jpg' %}") no-repeat center center/cover;
+        color: white;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }</style>
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="{% static 'accounts/img/logo.png' %}" alt="Logo" class="logo">
+            <span class="brand-name">Nirvaya</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li>  <a href="{% url 'about' %}">About</a></li>
+                    <li>  <a href="{% url 'services' %}">Services</a></li>
+                        <li>   <a href="{% url 'contact' %}">Contact</a></li>
+                            <li>  <a href="{% url 'user_profile' %}">User Profile</a></li>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero animate">
+            <h1>Transforming Your <br> Freedom With Us.</h1>
+            <p>Let's break down barriers and create a world where women thrive.<br> And travel everywhere anytime without any fear.</p>
+            <a href="{% url 'signin' %}"  class="join-btn">
+                <button>Join Us</button>
+        </section>
+    </main>
+
+    <script src="{% static 'accounts/js/join_script.js' %}"></script>
+</body>
+</html>
